@@ -1,0 +1,48 @@
+.auth-container {
+  background-image: url(./assets/images/auth-bg.png);
+}
+.bg-overlay {
+  background: linear-gradient(rgba(47, 140, 96, 0.4), rgba(0, 0, 0, 0.7));
+}
+/* .auth-container .logo{
+  width: 200px;
+} */
+.sidebar-container {
+  height: 100%;
+  background-color: #1f263e;
+  border-top-right-radius: 80px;
+}
+
+.sidebar-container .ps-sidebar-container {
+  background-color: #1f263e;
+  border-top-right-radius: 80px;
+
+  height: 100vh;
+  color: #fff;
+}
+.sidebar-container .ps-sidebar-container .ps-menu-button:hover {
+  background-color: rgba(47, 140, 96, 0.4);
+}
+.sidebar-container .ps-sidebar-container .ps-menuitem-root:first-child {
+  margin: 30px 0;
+} 
+.sidebar-container .ps-sidebar-container .ps-menuitem-root:first-child span{
+  width:fit-content
+}
+.sidebar-container .ps-sidebar-container .ps-menuitem-root:first-child a:hover {
+  background-color: transparent;
+}
+.item-img{
+  width: 50px;
+  height: 50px;
+}
+.header-container {
+  background-image: url(./assets/images/header-bg-svg.svg);
+  background-size: cover;
+  color: #fff;
+}
+.recipeheadercontainer{
+  background-color: #F0FFEF;
+}
+
+/* 1F263E */
