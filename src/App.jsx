@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import ForgetPass from "./modules/AuthenticationModule/components/forgetpass/ForgetPass";
@@ -19,22 +19,10 @@ import "react-toastify/dist/ReactToastify.css";
 import RecipeData from "./modules/RecipesModule/components/RecipeData/RecipeData";
 import VerifyAccount from "./modules/AuthenticationModule/components/VerifyAccount/VerifyAccount";
 import FavList from "./modules/FavsModule/components/FavsList/FavList";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  let [loginData, setLoginData] = useState(null);
-  let saveLoginData = () => {
-    let encodedToken = localStorage.getItem("token");
-    let decodedToken = jwtDecode(encodedToken);
-    localStorage.setItem("userData", JSON.stringify(decodedToken));
-    // console.log(decodedToken);
-    setLoginData(decodedToken);
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      saveLoginData();
-    }
-  }, []);
+  let { loginData, saveLoginData } = useContext(AuthContext);
 
   let routes = createBrowserRouter([
     {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import toggler from "../../../../assets/images/3.png";
@@ -10,8 +10,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePass from "../../../AuthenticationModule/components/changepass/ChangePass";
+import { AuthContext } from "../../../../context/AuthContext";
 
-export default function SideBar({ loginData }) {
+export default function SideBar() {
+  let { loginData } = useContext(AuthContext);
   const [isCollapse, setIsCollapse] = useState(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

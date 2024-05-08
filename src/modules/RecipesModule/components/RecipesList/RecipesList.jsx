@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../../SharedModule/components/Header/Header";
 import headerImg from "../../../../assets/images/header.png";
 import axios from "axios";
 import NoData from "../../../SharedModule/components/NoData/NoData";
 import noData from "../../../../assets/images/no-data.png";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export default function RecipesList() {
+  const { loginData } = useContext(AuthContext);
   const navigate = useNavigate();
   const [recipesList, setRecipesList] = useState([]);
   const [categoriestList, setCategoriesList] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [nameValue, setNameValue] = useState("");
-  const [userData, setUserData] = useState(null);
 
   const [catValue, setCatValue] = useState("");
   const [tagValue, setTagValue] = useState("");
@@ -100,7 +101,6 @@ export default function RecipesList() {
     getRecipesList("", "", "", 3, 1);
     getCategoriesList();
     getTagsList();
-    setUserData(JSON.parse(localStorage.getItem("userData")));
   }, []);
   return (
     <>
@@ -119,7 +119,7 @@ export default function RecipesList() {
             <span>You can check all details</span>
           </div>
           <div className="col-md-6 text-end">
-            {userData?.userGroup == "SuperAdmin" ? (
+            {loginData?.userGroup == "SuperAdmin" ? (
               <button onClick={goToReceipeData} className="btn btn-success">
                 Add new Receipe
               </button>
@@ -198,7 +198,7 @@ export default function RecipesList() {
                     <td>{item.description}</td>
                     <td>{item.category[0]?.name}</td>
                     <td>{item.tag.name}</td>
-                    {userData?.userGroup == "SuperAdmin" ? (
+                    {loginData?.userGroup == "SuperAdmin" ? (
                       <td>
                         <i
                           className="fa fa-edit text-warning mx-2"

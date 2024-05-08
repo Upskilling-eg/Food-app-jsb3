@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import logo from "../../../../assets/images/logo.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContext } from "../../../../context/ToastContext";
 
 export default function Login({ saveLoginData }) {
+  let { getToastValue } = useContext(ToastContext);
   const navigate = useNavigate();
   let {
     register,
@@ -15,9 +17,7 @@ export default function Login({ saveLoginData }) {
   } = useForm();
 
   useEffect(() => {
-    
-    if(localStorage.getItem('token'))
-     navigate('/dashboard')
+    if (localStorage.getItem("token")) navigate("/dashboard");
   }, []);
 
   const onSubmit = async (data) => {
@@ -28,10 +28,10 @@ export default function Login({ saveLoginData }) {
       );
       localStorage.setItem("token", response.data.token);
       saveLoginData();
-      toast.success('loginnnn');
+      getToastValue("success", "login success");
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.response.data.message, { position: "top-left" });
+      getToastValue("error", error.response.data.message);
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import headerImg from "../../../../assets/images/header.png";
 import Header from "../../../SharedModule/components/Header/Header";
 import axios from "axios";
@@ -7,8 +7,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import DeleteData from "../../../SharedModule/components/DeleteData/DeleteData";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export default function CategoriesList() {
+  let { baseUrl, requestHeaders } = useContext(AuthContext);
   const [categoriestList, setCategoriesList] = useState([]);
   const [show, setShow] = useState(false);
   const [catId, setCatId] = useState("");
@@ -28,9 +30,9 @@ export default function CategoriesList() {
   const getCategoriesList = async (name, pageSize, PageNo) => {
     try {
       let response = await axios.get(
-        `https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=${pageSize}&pageNumber=${PageNo}`,
+        `${baseUrl}/Category/?pageSize=${pageSize}&pageNumber=${PageNo}`,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: requestHeaders,
           params: { name: name },
         }
       );
@@ -54,13 +56,9 @@ export default function CategoriesList() {
 
   const onSubmit = async (data) => {
     try {
-      let response = await axios.post(
-        "https://upskilling-egypt.com:3006/api/v1/Category",
-        data,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
+      let response = await axios.post(`${baseUrl}/Category`, data, {
+        headers: requestHeaders,
+      });
       handleClose();
       getCategoriesList();
       console.log(response);
@@ -71,12 +69,9 @@ export default function CategoriesList() {
   };
   const onDeleteSubmit = async () => {
     try {
-      let response = await axios.delete(
-        `https://upskilling-egypt.com:3006/api/v1/Category/${catId}`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
+      let response = await axios.delete(`${baseUrl}/Category/${catId}`, {
+        headers: requestHeaders,
+      });
       handleDeleteClose();
       getCategoriesList();
     } catch (error) {
