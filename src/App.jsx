@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { useContext, useEffect, useState } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import "./App.css";
 import ForgetPass from "./modules/AuthenticationModule/components/forgetpass/ForgetPass";
 import Login from "./modules/AuthenticationModule/components/login/Login";
@@ -24,7 +24,7 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   let { loginData, saveLoginData } = useContext(AuthContext);
 
-  let routes = createBrowserRouter([
+  let routes = createHashRouter([
     {
       path: "dashboard",
       element: (
